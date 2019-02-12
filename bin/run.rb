@@ -1,3 +1,10 @@
 require_relative '../config/environment'
+require_relative '../lib/cli.rb'
 
-puts "hello world"
+
+welcome
+
+
+# 
+# binding.pry
+# 0
