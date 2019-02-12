@@ -89,24 +89,24 @@ def get_visitor_name
   tmp_res = @prompt.yes?("""
      Hey #{tmp_name}!
      if you don\'t mind me asking..., are you looking on purchasing the rights to any pieces?""")
-  if tmp_res == true
+
+  case tmp_res
+  when true
     @user.update(rich: true)
     puts "thank you!"
+    system "clear" or system "cls"
     experience
-    binding.pry
-  elsif tmp_res == false
+  when false
     @user.update(rich: false)
     puts "thank you!"
+    system "clear" or system "cls"
     experience
-  else
-    "pardon? I don't understand your response."
-    tmp_res
   end
 
 end
 def experience
 
-  """
+  puts """
   welcome to MoMA!
 
   you have the option to, find a specific piece, show all pieces, visit the gallery, or purchase the rights to a Artwork
@@ -218,12 +218,16 @@ def gallery_locater(query)
 
   case answer
   when 'visit gallery'
+    system "clear" or system "cls"
     gallery
   when 'find another piece'
+    system "clear" or system "cls"
     locate_screen
   when 'top 3 pieces'
+    system "clear" or system "cls"
     top
   when 'favorite this piece'
+    system "clear" or system "cls"
     favor
   end
 
@@ -234,11 +238,11 @@ end
 def gallery
 
 
-  piece = Piece.all.select do |piece|
-    piece.title
-    piece.artist
-  end
-  @gp = piece.sample(3)
+  # piece = Piece.all.select do |piece|
+  #   piece.title
+  #   piece.artist
+  # end
+  # @gp = piece.sample(3)
 
 
   puts """
@@ -264,8 +268,8 @@ __---___---_________________________________________________________---___---__
     |||||||                       |    !    |                       |||||||
     |||||||                       |    .    |                       |||||||
     |||||||                         -------                         |||||||
-    #{@gp[0].artist}
-    #{@gp[0].title}
+    {@gp[0].artist}
+    {@gp[0].title}
     |||||||                                                         |||||||
     |||||||                                                         |||||||
     |||||||                            2                            |||||||
@@ -276,8 +280,8 @@ __---___---_________________________________________________________---___---__
     |||||||                       |  _)^(_  |                       |||||||
     |||||||                       |    V    |                       |||||||
     |||||||                         -------                         |||||||
-    #{@gp[1].artist}
-    #{@gp[1].title}
+    {@gp[1].artist}
+    {@gp[1].title}
     |||||||                                                         |||||||
     |||||||                                                         |||||||
     |||||||                            3                            |||||||
@@ -288,8 +292,8 @@ __---___---_________________________________________________________---___---__
     |||||||                       | */____/ |                       |||||||
     |||||||                       |         |                       |||||||
     |||||||                         -------                         |||||||
-    #{@gp[2].artist}
-    #{@gp[2].title}
+    {@gp[2].artist}
+    {@gp[2].title}
     |||||||                                                         |||||||
     |||||||                                                         |||||||
     |||||||                                                         |||||||
@@ -308,12 +312,16 @@ _______________________________________________________________________________
 
   case answer
   when '1'
+    system "clear" or system "cls"
     locate_piece(@gp[0])
   when '2'
+    system "clear" or system "cls"
     locate_piece(@gp[1])
   when '3'
+    system "clear" or system "cls"
     locate_piece(@gp[2])
   when 'exit'
+    system "clear" or system "cls"
     experience
   end
 
