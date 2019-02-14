@@ -17,8 +17,7 @@ def find_piece(query)
 end
 
 
-# gallery formatter
-def gf(artist,title,date,desc)
+def gallery_formatter(artist,title,date,desc)
   puts """
   _________________________▂▃▅▇█▓▒░۩۞۩ ۩۞۩░▒▓█▇▅▃▂________________________
    |____________________________________________________________________|
@@ -40,6 +39,8 @@ def gf(artist,title,date,desc)
 
 
 end
+######### End Piece Lookup Helper Methods #########
+
 
 def exit
   answer = @prompt.select("options, ", ['locate piece', 'all pieces', 'visit gallery','your favorites', 'vault' ])
@@ -69,7 +70,9 @@ def exit
 
   system "clear" or system "cls"
 end
-############# Welcome #############
+
+
+############# Start Screens #############
 
 def welcome
   # start "../sound/music.mp3"
@@ -214,13 +217,6 @@ def locate_screen
 
 end
 
-
-#found gallery piece, formats it
-def fgp(piece)
-  gf(piece.artist,piece.title,piece.date,piece.desc)
-  exit
-end
-
 def allpieces
   tmp = Piece.all.map do |piece|
     piece.title
@@ -254,6 +250,17 @@ def allpieces
 
 end
 
+############# End Screen #############
+
+
+#found gallery piece, formats it
+def fgp(piece)
+  gallery_formatter(piece.artist,piece.title,piece.date,piece.desc)
+  exit
+end
+
+
+
 def favs
   tmp_f = Favorite.where(user_id: @user.id)
   tmp_ps = tmp_f.map do |favorites|
@@ -266,7 +273,7 @@ def favs
   end
   piece.each do |piece|
     tmp = find_piece(piece)
-    gf(tmp.artist,tmp.title,tmp.date,tmp.desc)
+    gallery_formatter(tmp.artist,tmp.title,tmp.date,tmp.desc)
   end
 
   piece.each do |p|
@@ -289,7 +296,7 @@ def owned_pieces
   op.each do |piece| #owned piece
 
     tmp = find_piece(piece)
-    gf(tmp.artist,tmp.title,tmp.date,tmp.desc)
+    gallery_formatter(tmp.artist,tmp.title,tmp.date,tmp.desc)
   end
 
 
@@ -297,7 +304,7 @@ def owned_pieces
 end
 
 
-###############
+### Ratings ###
 
 def highest_rating
   run = Favorite.all.map do |fav|
@@ -312,7 +319,7 @@ def highest_rating
 
   @rating.each do |piece|
     p = find_piece(piece)
-    gf(p.artist,p.title,p.date,p.desc)
+    gallery_formatter(p.artist,p.title,p.date,p.desc)
   end
 end
 
@@ -320,7 +327,7 @@ def top
   highest_rating
   exit
 end
-###################
+### End Ratings ###
 
 
 
@@ -330,7 +337,7 @@ def gallery_locater(query)
   # tmp_query = @prompt.ask('please enter the title of the piece you\'re looking for?')
   tmp = query.title
   @fp = find_piece(tmp) #found piece
-  gf(@fp.artist,@fp.title,@fp.date, @fp.desc)
+  gallery_formatter(@fp.artist,@fp.title,@fp.date, @fp.desc)
 
 
   answer = @prompt.select("options, ", ['visit gallery', 'find another piece', 'top 3 pieces','favorite this piece', 'claim piece!' ])
@@ -379,6 +386,7 @@ def gallery_locater(query)
 
 
 end
+
 def claim
   @fp.update(user_id: @user.id)
 end
@@ -562,8 +570,8 @@ _______________________________________________________________________________
 end
 
 
-
-
+### ! ! ! BANKSKY ! ! ! ###
+# Delete all Artwork and add's only one piece, It's a Easter Egg.
 def banksy
   art = Piece.all
   art.destroy_all
@@ -589,3 +597,4 @@ def banksy
   end
 
 end
+### ! ! ! BANKSKY ! ! ! ###
