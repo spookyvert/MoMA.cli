@@ -9,3 +9,4 @@ gem "faker"
 gem 'tty-prompt'
 gem 'json'
 gem 'rest-client'
+gem 'colorize'
