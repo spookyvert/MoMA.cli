@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-  has_many :favorites
-  has_many :pieces, through: :favorites
-  has_many :owned_pieces, class_name: 'piece'
+  has_many :favorites #needed
+  has_many :pieces, through: :favorites #needed
+  has_many :owned_pieces,  foreign_key: "user_id", class_name: "Piece" #needed
 
 
   def love(p)

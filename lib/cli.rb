@@ -284,7 +284,10 @@ end
 
 
 def favs
-  tmp_f = Favorite.where(user_id: @user.id)
+  tmp_f = @user.favorites
+  # tmp_f = Favorite.where(user_id: @user.id)
+
+
   tmp_ps = tmp_f.map do |favorites|
     favorites.piece_id
   end.uniq
@@ -298,18 +301,22 @@ def favs
     gallery_formatter(tmp.artist,tmp.title,tmp.date,tmp.desc)
   end
 
-  piece.each do |p|
-    find_piece(p)
-  end
-  piece.each do |p|
-    p[0]
-  end
+  # d = piece.each do |p|
+  #   find_piece(p)
+  # end
+  # e = piece.each do |p|
+  #   p[0]
+  # end
+
   exit
 
 end
 
 def owned_pieces
-  tmp_p = Piece.where(user_id: @user.id)
+  # tmp_p = Piece.where(user_id: @user.id)
+  tmp_p = @user.owned_pieces
+
+
   op = tmp_p.map do |piece|
     piece.title
 
@@ -320,7 +327,6 @@ def owned_pieces
     tmp = find_piece(piece)
     gallery_formatter(tmp.artist,tmp.title,tmp.date,tmp.desc)
   end
-
 
   exit
 
@@ -338,6 +344,8 @@ def highest_rating
 
     p.title
   end
+
+
   v = run.sort_by { |n|
     run.count(n)
   }
