@@ -10,6 +10,8 @@ Commands to run project
 ```
   # cd [project name]
   $ bundle
+  
+  $ rake db:seed (if you encountered the easter egg)
 ```
 
 ## 𝔅𝔲𝔦𝔩𝔱 𝔚𝔦𝔱𝔥

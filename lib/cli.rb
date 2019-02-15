@@ -12,7 +12,8 @@ def find_piece(query)
     banksy
   else
     Piece.all.find do |piece|
-      piece.title.include? query
+
+      piece.title.downcase.include? query.downcase
     end
   end
 
@@ -56,6 +57,19 @@ def sorry
   exit
 end
 
+def error
+  puts """
+    ¸,ø¤º°`°º¤ø,¸¸,ø¤º°°º¤ø,¸¸,ø¤º°`°º¤ø,¸ ¸,ø¤º°`°º¤ø,¸¸,ø¤º°¸,ø¤º°`°º¤ø,¸
+
+      |                                                                    |
+      |          Sorry, an error has occurred                              |
+      |                                                                    |
+
+      ¸,ø¤º°`°º¤ø,¸¸,ø¤º°°º¤ø,¸¸,ø¤º°`°º¤ø,¸ ¸,ø¤º°`°º¤ø,¸¸,ø¤º°¸,ø¤º°`°º¤ø,¸
+     """.colorize(:light_blue)
+  exit
+end
+
 def exit
   answer = @prompt.select("options, ", ['locate piece', 'all pieces', 'visit gallery','your favorites', 'vault' ])
 
@@ -71,6 +85,7 @@ def exit
     gallery
   when 'your favorites'
     system "clear" or system "cls"
+    
     favs
   when 'vault'
     system "clear" or system "cls"
@@ -78,6 +93,7 @@ def exit
       owned_pieces
     else
       puts "you DO NOT have access to this area"
+      exit
     end
   end
 
@@ -122,6 +138,8 @@ def welcome
 
   system "clear" or system "cls"
 end
+
+
 
 def favor
   puts """
@@ -240,16 +258,16 @@ def allpieces
   end
 
   puts """
-  _________________________▂▃▅▇█����������▒░۩۞۩ ۩۞۩░▒▓█▇▅▃▂________________________
+  ___________________▂▃▅▇█����������▒░۩۞۩ ۩۞۩░▒▓█▇▅▃▂_____________________
    |____________________________________________________________________|
    |                                                                    |
    |                                                                    |
-   |        * All of the artworks currently displayed                   |
+   |              * All of the artworks currently displayed             |
    |                                                                    |
    |                                                                    |
    """.colorize(:light_blue)
   tmp.each do |piece|
-    puts "          - #{piece}".colorize(:light_blue)
+    puts "                     ´ #{piece}".colorize(:light_blue)
   end
 
 
@@ -314,7 +332,7 @@ end
 
 def owned_pieces
   # tmp_p = Piece.where(user_id: @user.id)
-  tmp_p = @user.owned_pieces
+  tmp_p = @user.owned_pieces.all
 
 
   op = tmp_p.map do |piece|
@@ -322,12 +340,15 @@ def owned_pieces
 
   end
 
+binding.pry
   op.each do |piece| #owned piece
 
     tmp = find_piece(piece)
     gallery_formatter(tmp.artist,tmp.title,tmp.date,tmp.desc)
   end
 
+
+binding.pry
   exit
 
 

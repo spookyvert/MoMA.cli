@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
 
   def love(p)
-    Favorite.create(user_id: self.id, piece_id: p.id)
+    self.favorites.create(piece_id: p.id)
   end
 
 end
