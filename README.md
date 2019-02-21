@@ -8,9 +8,21 @@ a CLI rendition of The Museum of Modern Art. populated with 60+ famous pieces.
 Commands to run project
 
 ```
-  # cd [project name]
+  # cd MoMA.cli
   $ bundle
   
+  $ rake db:seed (if you encountered the easter egg)
+```
+
+## 𝕯𝖊𝖇𝖚𝖌𝖌𝖎𝖓𝖌
+
+if you come into any bugs in the code, try this
+
+```
+  $ rake console
+  $ User.destroy_all
+  $ Favorite.destroy_all
+  $ Piece.destroy_all
   $ rake db:seed (if you encountered the easter egg)
 ```
 
